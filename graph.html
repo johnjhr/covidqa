@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #chart_div text {
+    fill: black !important;
+}
+        </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">      
+            google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Time of Day');
+        data.addColumn('number', 'Total Cases');
+        data.addColumn('number', 'Total Recovered');
+        data.addColumn('number', 'Total Active');
+        
+
+        data.addRows([
+            [new Date(2020, 1, 29), 1,0,0],  [new Date(2020, 2, 2), 3,0,0],
+          [new Date(2020, 2, 7), 8,0,0],  [new Date(2020, 2, 8), 15,0,0],  [new Date(2020, 2, 9), 18,0,0],
+          [new Date(2020, 2, 10), 24,0,0],  [new Date(2020, 2, 11), 262,0,0],  [new Date(2020, 2, 13), 320,0,0], [new Date(2020, 2, 14), 337,4,333], [new Date(2020, 2, 15), 401,4,397], [new Date(2020, 2, 16), 439,4,435],[new Date(2020, 2, 17), 442,4,438], [new Date(2020, 2, 18), 452,4,448], [new Date(2020, 2, 19), 460,10,450], [new Date(2020, 2, 20), 470,10,460],[new Date(2020, 2, 21), 481,27,454],[new Date(2020, 2, 22), 494,33,461],[new Date(2020, 2, 22), 501,37,464]
+        ]);
+
+
+        var options = {
+          title: 'COVID19 Cases In Qatar',
+          width: 960,
+          height: 400,
+          colors: ['#FF0000','#00FF00','#F5BD1F'],
+          pointSize: 10,
+          backgroundColor: '#615e5e',
+          hAxis: {
+            format: 'M/d/yy',
+            
+            gridlines: {color:'#FFFFFF',count: 15}
+          },
+          vAxis: {
+            
+            gridlines: {color: '#FFFFFF'},
+            minValue: 0
+          }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+        var button = document.getElementById('change');
+
+        button.onclick = function () {
+
+          // If the format option matches, change it to the new option,
+          // if not, reset it to the original format.
+          options.hAxis.format === 'M/d/yy' ?
+          options.hAxis.format = 'MMM dd, yyyy' :
+          options.hAxis.format = 'M/d/yy';
+
+          chart.draw(data, options);
+        };
+      }
+
+</script>
+</head>
+      <button id="change">Click to Change the format</button>
+    <div id="chart_div"></div>
+
+   
+</body>
+</html>
